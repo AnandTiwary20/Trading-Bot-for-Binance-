@@ -1,6 +1,6 @@
 from binance.client import Client
-from config import API_KEY, API_SECRET
-from logging_config import logging
+from .config import API_KEY, API_SECRET
+import logging
 
 def get_client():
     try:
