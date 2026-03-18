@@ -16,7 +16,11 @@ def main():
         print("Market order failed. Stopping execution.")
         return
 
-    place_limit_order(client, symbol, "SELL", quantity, price="70000")
+    place_limit_order(client, symbol, "SELL", quantity, price="70000");
+    
+    
+if __name__ == "__main__":
+      main()    
 
 # place_market_order(client, symbol, "BUY", quantity)
 # place_limit_order(client, symbol, "SELL", quantity, price="90000")
