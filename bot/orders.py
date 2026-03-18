@@ -8,5 +8,9 @@ def place_market_order(client, symbol, side, quantity):
             side=side,
             type="MARKET",
             quantity=quantity
-        
         )
+        logging.info(f"Market order placed: {order}")
+        return order
+    except Exception as e:
+        logging.error(f"Error placing market order: {e}")
+        return None
