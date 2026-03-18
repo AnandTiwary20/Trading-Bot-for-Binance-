@@ -1,8 +1,20 @@
 
 import logging 
 
+def format_order_response(order):
+    if not order:
+        return None
+
+    return {
+        "orderId": order.get("orderId"),
+        "status": order.get("status"),
+        "executedQty": order.get("executedQty"),
+        "avgPrice": order.get("avgPrice", "N/A")
+    }
+
 def place_market_order(client, symbol, side, quantity):
     try: 
+        logging.info(f"Placing MARKET order: {symbol} {side} {quantity}")
         order =client.futures_create_order(  
                                                       #may need to failure if the input is not validated
             symbol=symbol,
@@ -14,13 +26,15 @@ def place_market_order(client, symbol, side, quantity):
 
         )
         logging.info(f"Market order placed: {order}") 
-        return order
+        return format_order_response(order)
     except Exception as e:
         logging.error(f"Error placing market order: {e}")
-        return None
+        return {"error": str(e)}
     
 def place_limit_order(client, symbol, side, quantity, price):
     try:
+        logging.info(f"Placing LIMIT order: {symbol} {side} {quantity} @ {price}")
+        
         order = client.futures_create_order(
             symbol=symbol,
             side=side,
@@ -30,7 +44,8 @@ def place_limit_order(client, symbol, side, quantity, price):
             timeInForce="GTC"
         )
         logging.info(f"Limit order placed: {order}")
-        return order
+        return format_order_response(order)
+    
     except Exception as e:
-        logging.error(f"Error placing limit order: {e}")
-        return None
+        logging.error(f"Limit order failed: {e}")
+        return  {"error": str(e)}
