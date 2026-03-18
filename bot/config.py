@@ -1,3 +1,7 @@
-API_KEY = "8qm4Sifhnn03nwmzFLMTkIHW62hkIZmV9a8y2xW0xEPKli7HHpZKxhHqmJlXEHRg"
-API_SECRET = "kNwvVMNU3ZIrxo1mMUSDBa1SPZsy8s6EO9mmiXPVzZPBPmxU4HaIVdLd8Qy8tPEE"
-BASE_URL = "https://testnet.binancefuture.com"
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
+API_SECRET = os.getenv("API_SECRET")
